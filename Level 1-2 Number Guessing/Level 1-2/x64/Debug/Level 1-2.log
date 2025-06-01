@@ -1,0 +1,7 @@
+﻿  Number guessing game.c
+D:\c code\2025\Level 1-2\Level 1-2\Number guessing game.c(11,2): warning C4013: “srand”未定义；假设外部返回 int
+D:\c code\2025\Level 1-2\Level 1-2\Number guessing game.c(12,6): warning C4013: “rand”未定义；假设外部返回 int
+D:\c code\2025\Level 1-2\Level 1-2\Number guessing game.c(25,19): error C2143: 语法错误: 缺少“)”(在“!=”的前面)
+D:\c code\2025\Level 1-2\Level 1-2\Number guessing game.c(25,25): error C2059: 语法错误:“)”
+D:\c code\2025\Level 1-2\Level 1-2\Number guessing game.c(25,26): error C2059: 语法错误:“)”
+D:\c code\2025\Level 1-2\Level 1-2\Number guessing game.c(26,3): error C2143: 语法错误: 缺少“)”(在“}”的前面)
