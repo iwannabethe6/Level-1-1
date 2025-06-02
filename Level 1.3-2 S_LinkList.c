@@ -3,13 +3,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// µ¥Á´±í½Úµã½á¹¹Ìå
+// å•é“¾è¡¨èŠ‚ç‚¹ç»“æ„ä½“
 typedef struct Node {
     int data;
     struct Node* next;
 } Node;
 
-// ´´½¨³õÊ¼Á´±í£º½ÚµãÖµÒÀ´ÎÎª 8, 91, 54, 3, 7
+// åˆ›å»ºåˆå§‹é“¾è¡¨ï¼šèŠ‚ç‚¹å€¼ä¾æ¬¡ä¸º 8, 91, 54, 3, 7
 Node* createInitialList() {
     int initVals[] = { 8, 91, 54, 3, 7 };
     int n = 5;
@@ -33,7 +33,7 @@ Node* createInitialList() {
     return head;
 }
 
-// ´òÓ¡Á´±íÄÚÈİ
+// æ‰“å°é“¾è¡¨å†…å®¹
 void printList(Node* head) {
     Node* cur = head;
     while (cur != NULL) {
@@ -43,17 +43,17 @@ void printList(Node* head) {
     printf("\n");
 }
 
-// É¾³ıÖµÎª delVal µÄµÚÒ»¸ö½Úµã
-// ·µ»ØÉ¾³ıºóµÄĞÂÍ·Ö¸Õë£¨Èç¹ûÉ¾³ıµÄÊÇÍ·½Úµã£¬head »á¸üĞÂ£©
+// åˆ é™¤å€¼ä¸º delVal çš„ç¬¬ä¸€ä¸ªèŠ‚ç‚¹
+// è¿”å›åˆ é™¤åçš„æ–°å¤´æŒ‡é’ˆï¼ˆå¦‚æœåˆ é™¤çš„æ˜¯å¤´èŠ‚ç‚¹ï¼Œhead ä¼šæ›´æ–°ï¼‰
 Node* deleteByValue(Node* head, int delVal) {
     Node* prev = NULL;
     Node* cur = head;
 
     while (cur != NULL) {
         if (cur->data == delVal) {
-            // ÕÒµ½ÒªÉ¾³ıµÄ½Úµã
+            // æ‰¾åˆ°è¦åˆ é™¤çš„èŠ‚ç‚¹
             if (prev == NULL) {
-                // É¾³ıÍ·½Úµã
+                // åˆ é™¤å¤´èŠ‚ç‚¹
                 head = cur->next;
             }
             else {
@@ -68,13 +68,25 @@ Node* deleteByValue(Node* head, int delVal) {
     return head;
 }
 
-// ÔÚÁ´±íµÄµÚ pos Î»ÖÃ£¨1-based£©²åÈëÖµ insVal
-// Èç¹û pos == 1£¬¾Í°ÑĞÂ½Úµã²åµ½Í·²¿
-// ·µ»Ø²åÈëºóµÄÍ·Ö¸Õë
+// åœ¨é“¾è¡¨çš„ç¬¬ pos ä½ç½®ï¼ˆ1-basedï¼‰æ’å…¥å€¼ insVal
+// å¦‚æœ pos == 1ï¼Œå°±æŠŠæ–°èŠ‚ç‚¹æ’åˆ°å¤´éƒ¨
+// è¿”å›æ’å…¥åçš„å¤´æŒ‡é’ˆ
 Node* insertAtPosition(Node* head, int pos, int insVal) {
     Node* newNode = (Node*)malloc(sizeof(Node));
     newNode->data = insVal;
     newNode->next = NULL;
+
+    if (head == NULL) 
+    {
+        if (pos == 1) 
+            return newNode;
+        else 
+        {
+            free(newNode); // æˆ–è€…ç›´æ¥ return head;
+            return head;
+        }
+    }
+
 
     if (pos == 1) {
         newNode->next = head;
@@ -82,14 +94,14 @@ Node* insertAtPosition(Node* head, int pos, int insVal) {
     }
 
     Node* cur = head;
-    // ÕÒµ½µÚ (pos-1) ¸ö½Úµã£¨Èç¹ûÁ´±í³¤¶È < pos-1£¬Ôò²åµ½Î²²¿£©
+    // æ‰¾åˆ°ç¬¬ (pos-1) ä¸ªèŠ‚ç‚¹ï¼ˆå¦‚æœé“¾è¡¨é•¿åº¦ < pos-1ï¼Œåˆ™æ’åˆ°å°¾éƒ¨ï¼‰
     for (int i = 1; i < pos - 1 && cur != NULL; i++) {
         cur = cur->next;
     }
 
     if (cur == NULL) {
-        // Á´±í³¤¶È²»×ã£¬Ö±½Ó²åµ½Î²²¿
-        // ÏÈÕÒÎ²²¿
+        // é“¾è¡¨é•¿åº¦ä¸è¶³ï¼Œç›´æ¥æ’åˆ°å°¾éƒ¨
+        // å…ˆæ‰¾å°¾éƒ¨
         cur = head;
         while (cur->next != NULL) {
             cur = cur->next;
@@ -97,7 +109,7 @@ Node* insertAtPosition(Node* head, int pos, int insVal) {
         cur->next = newNode;
     }
     else {
-        // Õı³£²åÈë
+        // æ­£å¸¸æ’å…¥
         newNode->next = cur->next;
         cur->next = newNode;
     }
@@ -106,26 +118,26 @@ Node* insertAtPosition(Node* head, int pos, int insVal) {
 }
 
 int main() {
-    // 1. ´´½¨³õÊ¼Á´±í
+    // 1. åˆ›å»ºåˆå§‹é“¾è¡¨
     Node* head = createInitialList();
 
-    // 2. ´òÓ¡³õÊ¼Á´±í
-    printf("³õÊ¼Á´±íÄÚÈİ£º\n");
+    // 2. æ‰“å°åˆå§‹é“¾è¡¨
+    printf("åˆå§‹é“¾è¡¨å†…å®¹ï¼š\n");
     printList(head);
 
-    // 3. ¶ÁÈëÒªÉ¾³ıµÄÖµ¡¢²åÈëµÄÎ»ÖÃºÍ²åÈëÖµ
+    // 3. è¯»å…¥è¦åˆ é™¤çš„å€¼ã€æ’å…¥çš„ä½ç½®å’Œæ’å…¥å€¼
     int delVal, insPos, insVal;
-    printf("ÇëÊäÈëÒªÉ¾³ıµÄÔªËØÖµ¡¢²åÈëµÄÎ»ÖÃ£¨´Ó1¿ªÊ¼£©¡¢²åÈëµÄÔªËØÖµ£º\n");
+    printf("è¯·è¾“å…¥è¦åˆ é™¤çš„å…ƒç´ å€¼ã€æ’å…¥çš„ä½ç½®ï¼ˆä»1å¼€å§‹ï¼‰ã€æ’å…¥çš„å…ƒç´ å€¼ï¼š\n");
     scanf("%d %d %d", &delVal, &insPos, &insVal);
 
-    // 4. É¾³ı delVal
+    // 4. åˆ é™¤ delVal
     head = deleteByValue(head, delVal);
 
-    // 5. ÔÚµÚ insPos Î»ÖÃ²åÈë insVal
+    // 5. åœ¨ç¬¬ insPos ä½ç½®æ’å…¥ insVal
     head = insertAtPosition(head, insPos, insVal);
 
-    // 6. ´òÓ¡²Ù×÷ºóÁ´±íÄÚÈİ
-    printf("²Ù×÷ºóÁ´±íÄÚÈİ£º\n");
+    // 6. æ‰“å°æ“ä½œåé“¾è¡¨å†…å®¹
+    printf("æ“ä½œåé“¾è¡¨å†…å®¹ï¼š\n");
     printList(head);
 
     return 0;
